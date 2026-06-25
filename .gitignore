@@ -7,6 +7,7 @@
 *.dll
 *.so
 *.dylib
+lru_cache
 
 # Test binary, built with `go test -c`
 *.test
