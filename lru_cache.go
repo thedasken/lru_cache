@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Node struct {
 	Key   string
@@ -108,4 +110,30 @@ func (c *LRUCache) Get(key string) (string, bool) {
 	}
 	c.moveToFront(node)
 	return node.Value, true
+}
+
+func (c *LRUCache) Len() int {
+	return len(c.Items)
+}
+
+func (c *LRUCache) Delete(key string) bool {
+	node, ok := c.Items[key]
+	if !ok {
+		return false
+	}
+
+	c.removeNode(node)
+	delete(c.Items, key)
+	return true
+}
+
+func (c *LRUCache) Clear() {
+	c.Items = make(map[string]*Node)
+	c.Head = nil
+	c.Tail = nil
+}
+
+func (c *LRUCache) Contains(key string) bool {
+	_, ok := c.Items[key]
+	return ok
 }
